@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Title</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        header {
+            display: -webkit-box;
+            background: #333;
+        }
+        header div {
+            height: 50px;
+            -webkit-box-flex: 1;
+            font-size: 18px;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+        }
+        #container {
+            height: 500px;
+            border: 1px solid #ccc;
+        }
+        .active {
+            background: #f00;
+            color: #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>首页</div>
+        <div>分类</div>
+        <div>购物车</div>
+        <div>我的秀</div>
+        <div>更多</div>
+    </header>
+    <div id="container">
+
+    </div>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script>
+        $(function () {
+            var htmlArr = ["view/home.html","view/class.html","view/car.html","view/mine.html","view/more.html"];
+            var titles = ["我的","更多","购物车","我的秀","更多"]
+            $("header div").click(function () {
+                $(this).addClass("active").siblings().removeClass("active");
+                var index = $(this).index();
+                $("#container").load(htmlArr[index]);
+                document.title = titles[index];
+                var url = window.location.href.split('#')[0]+'#'+htmlArr[index];
+                history.pushState({htmlUri:htmlArr[index]},titles,url);
+            })
+        })
+    </script>
+</body>
+</html>
